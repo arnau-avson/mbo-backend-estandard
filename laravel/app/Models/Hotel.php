@@ -1,13 +1,11 @@
 <?php
+    namespace App\Models;
+    use Illuminate\Database\Eloquent\Model;
 
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Hotel extends Model
-{
-    protected $fillable = [
-        'nombre',
-        'token',
-    ];
-}
+    class Hotel extends Model {
+        protected $table = 'hoteles';
+        protected $fillable = [
+            'nombre',
+            'token',
+        ];
+    }

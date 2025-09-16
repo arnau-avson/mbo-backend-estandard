@@ -64,21 +64,21 @@
                 'name' => 'Empleado1 Hotel 2',
                 'email' => 'empleado1_hotel2@hotel.com',
                 'password' => bcrypt('Empleado4_2025'),
-                'role' => 'empleado',
+                'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[1] ?? null,
             ]);
             User::create([
                 'name' => 'Empleado2 Hotel 2',
                 'email' => 'empleado2_hotel2@hotel.com',
                 'password' => bcrypt('Empleado5_2025'),
-                'role' => 'empleado',
+                'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[1] ?? null,
             ]);
             User::create([
                 'name' => 'Empleado3 Hotel 2',
                 'email' => 'empleado3_hotel2@hotel.com',
                 'password' => bcrypt('Empleado6_2025'),
-                'role' => 'empleado',
+                'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[1] ?? null,
             ]);
 
