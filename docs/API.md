@@ -84,3 +84,127 @@ Autentica a un usuario y devuelve un token de sesión para usar en las siguiente
   "password_confirmation": "NuevaPassword123"
 }
 ```
+
+
+
+## Gestión de CV (Experiencia, Formación, Idiomas, Datos Extra)
+
+Todas las rutas requieren autenticación con token (Bearer Token en el header Authorization).
+
+### Añadir experiencia
+**Endpoint:** `POST /api/cv/experiencia`
+
+**Body JSON:**
+```json
+{
+  "titulo": "Camarero",
+  "compania": "Hotel Luna",
+  "inicio_mes": 6,
+  "inicio_ano": 2022,
+  "fin_mes": 8,
+  "fin_ano": 2023,
+  "ciudad": "Barcelona",
+  "pais": "España"
+}
+```
+
+### Modificar experiencia
+**Endpoint:** `PUT /api/cv/experiencia/{id}`
+
+**Body JSON:** (solo los campos a modificar)
+```json
+{
+  "titulo": "Jefe de sala"
+}
+```
+
+### Eliminar experiencia
+**Endpoint:** `DELETE /api/cv/experiencia/{id}`
+
+---
+
+### Añadir formación
+**Endpoint:** `POST /api/cv/formacion`
+
+**Body JSON:**
+```json
+{
+  "titulo": "Grado en Turismo",
+  "institucion": "UB",
+  "inicio_mes": 9,
+  "inicio_ano": 2020,
+  "fin_mes": 6,
+  "fin_ano": 2024
+}
+```
+
+### Modificar formación
+**Endpoint:** `PUT /api/cv/formacion/{id}`
+
+**Body JSON:** (solo los campos a modificar)
+```json
+{
+  "titulo": "Máster en Dirección Hotelera"
+}
+```
+
+### Eliminar formación
+**Endpoint:** `DELETE /api/cv/formacion/{id}`
+
+---
+
+### Añadir idioma
+**Endpoint:** `POST /api/cv/idioma`
+
+**Body JSON:**
+```json
+{
+  "idioma": "Inglés",
+  "nivel": "B2"
+}
+```
+
+### Modificar idioma
+**Endpoint:** `PUT /api/cv/idioma/{id}`
+
+**Body JSON:**
+```json
+{
+  "nivel": "C1"
+}
+```
+
+### Eliminar idioma
+**Endpoint:** `DELETE /api/cv/idioma/{id}`
+
+---
+
+### Añadir dato extra
+**Endpoint:** `POST /api/cv/dato-extra`
+
+**Body JSON:**
+```json
+{
+  "tipo": "Carnet de conducir",
+  "valor": "B"
+}
+```
+
+### Modificar dato extra
+**Endpoint:** `PUT /api/cv/dato-extra/{id}`
+
+**Body JSON:**
+```json
+{
+  "valor": "B y A2"
+}
+```
+
+### Eliminar dato extra
+**Endpoint:** `DELETE /api/cv/dato-extra/{id}`
+
+---
+
+**Notas:**
+- No es necesario enviar el user_id, se toma automáticamente del usuario autenticado por el token.
+- Solo puedes modificar/eliminar tus propios registros.
