@@ -9,6 +9,12 @@
                 $table->id();
                 $table->unsignedBigInteger('hotel_id')->nullable();
                 $table->string('name');
+                $table->string('apellidos');
+                $table->string('telefono')->unique();
+                $table->string('direccion')->nullable();
+                $table->string('ciudad')->nullable();
+                $table->string('comunidad_autonoma')->nullable();
+                $table->string('codigo_postal')->nullable();
                 $table->string('email')->unique();
                 $table->string('rol');
                 $table->timestamp('email_verified_at')->nullable();

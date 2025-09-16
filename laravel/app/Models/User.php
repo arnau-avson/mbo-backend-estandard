@@ -9,6 +9,12 @@
 
         protected $fillable = [
             'name',
+            'apellidos',
+            'telefono',
+            'direccion',
+            'ciudad',
+            'comunidad_autonoma',
+            'codigo_postal',
             'email',
             'password',
             'hotel_id',
