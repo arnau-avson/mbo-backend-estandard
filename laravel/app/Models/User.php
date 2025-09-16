@@ -23,6 +23,7 @@
             'pin_crear_usuari',
             'pin_eliminar_usuari',
             'pin_modificar_email_usuari',
+            'puntos',
         ];
 
         protected $hidden = [

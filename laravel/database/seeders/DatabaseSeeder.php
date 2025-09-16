@@ -6,6 +6,7 @@
     class DatabaseSeeder extends Seeder {
         public function run(): void {
             $this->call(HotelesSeeder::class);
+            $this->call(ChatsSeeder::class);
             $hotelIds = \App\Models\Hotel::pluck('id')->toArray();
 
             User::unguard();

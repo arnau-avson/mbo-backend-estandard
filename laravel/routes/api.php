@@ -3,6 +3,7 @@
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\ChatController;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\NotificacionesController;
 
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -45,4 +46,9 @@
         Route::post('/dato-extra', [CvController::class, 'addDatoExtra']);
         Route::put('/dato-extra/{id}', [CvController::class, 'updateDatoExtra']);
         Route::delete('/dato-extra/{id}', [CvController::class, 'deleteDatoExtra']);
+    });
+
+    Route::prefix('notificaciones')->middleware('auth:sanctum')->group(function () {
+        Route::post('/crear', [NotificacionesController::class, 'crear']);
+        Route::patch('/{id}/marcar-leida', [NotificacionesController::class, 'marcarLeida']);
     });

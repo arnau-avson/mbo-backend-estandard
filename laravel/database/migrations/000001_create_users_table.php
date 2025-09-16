@@ -17,6 +17,7 @@
                 $table->string('codigo_postal')->nullable();
                 $table->string('email')->unique();
                 $table->string('rol');
+                $table->integer('puntos')->default(0);
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
                 $table->string('pin_crear_usuari')->nullable();
