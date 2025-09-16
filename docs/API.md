@@ -52,3 +52,35 @@ Autentica a un usuario y devuelve un token de sesión para usar en las siguiente
   "password": "Arnau_2004"
 }
 ```
+
+
+
+
+## Recuperar contraseña (Forgot Password)
+
+### 1. Solicitar cambio de contraseña
+
+**Endpoint:** `POST /api/auth/request-change-password`
+
+#### Ejemplo de JSON de petición
+```json
+{
+  "email": "arnau.bs1512004@gmail.com"
+}
+```
+
+---
+
+### 2. Confirmar cambio de contraseña
+
+**Endpoint:** `POST /api/auth/confirm-change-password`
+
+#### Ejemplo de JSON de petición
+```json
+{
+  "email": "arnau.bs1512004@gmail.com",
+  "pin": "123456",
+  "password": "NuevaPassword123",
+  "password_confirmation": "NuevaPassword123"
+}
+```

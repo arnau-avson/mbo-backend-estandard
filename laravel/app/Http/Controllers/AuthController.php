@@ -7,9 +7,30 @@ use App\Models\Hotel;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserPinMail;
+use App\Mail\UserChangeEmailPinMail;
 
 class AuthController extends Controller
 {
+    public function requestChangeEmailAndPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'new_email' => 'required|email|unique:users,email',
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        $pin = random_int(100000, 999999);
+        $user->pin_modificar_email_usuari = $pin;
+        $user->save();
+
+        Mail::to($validated['new_email'])->send(new UserChangeEmailPinMail($pin, $validated['new_email']));
+
+        return response()->json(['message' => 'Se ha enviado un PIN al nuevo email.']);
+    }
     public function login(Request $request)
     {
         $validated = $request->validate([
@@ -97,5 +118,77 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json(['message' => 'PIN verificado correctamente. Email verificado.']);
+    }
+
+    public function confirmChangeEmailAndPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'new_email' => 'required|email|unique:users,email',
+            'pin' => 'required|string',
+            'password' => 'required|string|min:6',
+            'password_confirmation' => 'required|string|same:password',
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        if ($user->pin_modificar_email_usuari !== $validated['pin']) {
+            return response()->json(['error' => 'PIN incorrecto'], 401);
+        }
+
+        $user->email = $validated['new_email'];
+        $user->password = Hash::make($validated['password']);
+        $user->pin_modificar_email_usuari = null;
+        $user->save();
+
+        return response()->json(['message' => 'Email y contraseña actualizados correctamente.']);
+    }
+
+    public function requestChangePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        $pin = random_int(100000, 999999);
+        $user->pin_modificar_email_usuari = $pin;
+        $user->save();
+
+        Mail::to($user->email)->send(new UserChangeEmailPinMail($pin, $user->email));
+
+        return response()->json(['message' => 'Se ha enviado un PIN al email.']);
+    }
+
+    public function confirmChangePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'pin' => 'required|string',
+            'password' => 'required|string|min:6',
+            'password_confirmation' => 'required|string|same:password',
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        if ($user->pin_modificar_email_usuari !== $validated['pin']) {
+            return response()->json(['error' => 'PIN incorrecto'], 401);
+        }
+
+        $user->password = Hash::make($validated['password']);
+        $user->pin_modificar_email_usuari = null;
+        $user->save();
+
+        return response()->json(['message' => 'Contraseña actualizada correctamente.']);
     }
 }
