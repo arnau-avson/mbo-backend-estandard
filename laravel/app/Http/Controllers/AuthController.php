@@ -10,6 +10,25 @@ use App\Mail\UserPinMail;
 
 class AuthController extends Controller
 {
+    public function login(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            return response()->json(['error' => 'Credenciales incorrectas'], 401);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+        return response()->json([
+            'message' => 'Login correcto',
+            'user' => $user,
+            'token' => $token,
+        ]);
+    }
     public function register(Request $request)
     {
 
