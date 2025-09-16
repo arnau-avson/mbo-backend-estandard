@@ -29,4 +29,8 @@
                 'password' => 'hashed',
             ];
         }
+
+        public function hotelesGestionados() {
+            return $this->hasMany(Hotel::class, 'manager_id');
+        }
     }
