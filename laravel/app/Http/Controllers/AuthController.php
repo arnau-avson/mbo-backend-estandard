@@ -43,6 +43,10 @@ class AuthController extends Controller
             return response()->json(['error' => 'Credenciales incorrectas'], 401);
         }
 
+        if (is_null($user->email_verified_at)) {
+            return response()->json(['error' => 'Debes verificar tu email antes de iniciar sesión.'], 403);
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'message' => 'Login correcto',

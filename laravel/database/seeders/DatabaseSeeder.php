@@ -18,6 +18,7 @@
                 'email' => 'arnau@avson.eu',
                 'password' => bcrypt('Arnau_2004'),
                 'rol' => 'GOD',
+                'email_verified_at' => now(),
             ]);
 
             // ADMIN DEL PRIMER HOTEL =========================
@@ -29,6 +30,7 @@
                 'password' => bcrypt('Admin1_2025'),
                 'rol' => 'ADMINISTRADOR',
                 'hotel_id' => $hotelIds[0] ?? null,
+                'email_verified_at' => now(),
             ]);
 
             // ADMIN DEL SEGUNDO HOTEL ========================
@@ -40,6 +42,7 @@
                 'password' => bcrypt('Admin2_2025'),
                 'rol' => 'ADMINISTRADOR',
                 'hotel_id' => $hotelIds[1] ?? null,
+                'email_verified_at' => now(),
             ]);
 
             // EMPLEADOS HOTEL 1 =========================
@@ -51,6 +54,7 @@
                 'password' => bcrypt('Empleado1_2025'),
                 'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[0] ?? null,
+                'email_verified_at' => now(),
             ]);
             User::create([
                 'name' => 'Empleado2 Hotel 1',
@@ -60,6 +64,7 @@
                 'password' => bcrypt('Empleado2_2025'),
                 'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[0] ?? null,
+                'email_verified_at' => now(),
             ]);
             User::create([
                 'name' => 'Empleado3 Hotel 1',
@@ -69,6 +74,7 @@
                 'password' => bcrypt('Empleado3_2025'),
                 'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[0] ?? null,
+                'email_verified_at' => now(),
             ]);
 
             // EMPLEADOS HOTEL 2 =========================
@@ -80,6 +86,7 @@
                 'password' => bcrypt('Empleado4_2025'),
                 'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[1] ?? null,
+                'email_verified_at' => now(),
             ]);
             User::create([
                 'name' => 'Empleado2 Hotel 2',
@@ -89,6 +96,7 @@
                 'password' => bcrypt('Empleado5_2025'),
                 'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[1] ?? null,
+                'email_verified_at' => now(),
             ]);
             User::create([
                 'name' => 'Empleado3 Hotel 2',
@@ -98,6 +106,7 @@
                 'password' => bcrypt('Empleado6_2025'),
                 'rol' => 'EMPLEADOS',
                 'hotel_id' => $hotelIds[1] ?? null,
+                'email_verified_at' => now(),
             ]);
 
             User::reguard();
