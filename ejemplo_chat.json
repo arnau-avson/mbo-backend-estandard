@@ -1,0 +1,20 @@
+[
+  {
+    "from": "manager",
+    "message": "Hola, ¿cómo va el turno de hoy?",
+    "timestamp": "2025-09-16T10:00:00Z",
+    "leido": true
+  },
+  {
+    "from": "empleado",
+    "message": "¡Hola! Todo bien, sin incidencias.",
+    "timestamp": "2025-09-16T10:01:00Z",
+    "leido": true
+  },
+  {
+    "from": "manager",
+    "message": "Perfecto, avísame si necesitas algo.",
+    "timestamp": "2025-09-16T10:02:00Z",
+    "leido": false
+  }
+]
