@@ -24,25 +24,20 @@
         Route::post('/marcar-leido', [ChatController::class, 'marcarMensajeLeido']);
     });
 
-    // CV CRUD
     use App\Http\Controllers\CvController;
     Route::prefix('cv')->group(function () {
-        // Experiencia
         Route::post('/experiencia', [CvController::class, 'addExperiencia']);
         Route::put('/experiencia/{id}', [CvController::class, 'updateExperiencia']);
         Route::delete('/experiencia/{id}', [CvController::class, 'deleteExperiencia']);
 
-        // Formacion
         Route::post('/formacion', [CvController::class, 'addFormacion']);
         Route::put('/formacion/{id}', [CvController::class, 'updateFormacion']);
         Route::delete('/formacion/{id}', [CvController::class, 'deleteFormacion']);
 
-        // Idioma
         Route::post('/idioma', [CvController::class, 'addIdioma']);
         Route::put('/idioma/{id}', [CvController::class, 'updateIdioma']);
         Route::delete('/idioma/{id}', [CvController::class, 'deleteIdioma']);
 
-        // Dato Extra
         Route::post('/dato-extra', [CvController::class, 'addDatoExtra']);
         Route::put('/dato-extra/{id}', [CvController::class, 'updateDatoExtra']);
         Route::delete('/dato-extra/{id}', [CvController::class, 'deleteDatoExtra']);

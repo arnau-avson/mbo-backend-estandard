@@ -11,7 +11,6 @@ use App\Models\DatoExtra;
 
 class CvController extends Controller
 {
-    // EXPERIENCIA
     public function addExperiencia(Request $request)
     {
         $validated = $request->validate([
@@ -51,7 +50,6 @@ class CvController extends Controller
         return response()->json(['message' => 'Eliminado']);
     }
 
-    // FORMACION
     public function addFormacion(Request $request)
     {
         $validated = $request->validate([
