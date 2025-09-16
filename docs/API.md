@@ -19,6 +19,7 @@ Registra un nuevo usuario asociado a un hotel y envía un email con el PIN neces
 ```
 
 
+
 ## Verificar PIN de usuario
 
 **Endpoint:** `POST /api/auth/verify-pin`
@@ -31,5 +32,23 @@ Verifica si el PIN introducido para el email es correcto. Si es correcto, marca 
 {
   "email": "arnau.bs1512004@gmail.com",
   "pin": "456455"
+}
+```
+
+
+
+
+## Login de usuario
+
+**Endpoint:** `POST /api/auth/login`
+
+Autentica a un usuario y devuelve un token de sesión para usar en las siguientes peticiones.
+
+### Ejemplo de JSON de petición
+
+```json
+{
+  "email": "arnau.bs1512004@gmail.com",
+  "password": "Arnau_2004"
 }
 ```
