@@ -18,8 +18,6 @@ Registra un nuevo usuario asociado a un hotel y envía un email con el PIN neces
 }
 ```
 
-
-
 ## Verificar PIN de usuario
 
 **Endpoint:** `POST /api/auth/verify-pin`
@@ -35,9 +33,6 @@ Verifica si el PIN introducido para el email es correcto. Si es correcto, marca 
 }
 ```
 
-
-
-
 ## Login de usuario
 
 **Endpoint:** `POST /api/auth/login`
@@ -52,9 +47,6 @@ Autentica a un usuario y devuelve un token de sesión para usar en las siguiente
   "password": "Arnau_2004"
 }
 ```
-
-
-
 
 ## Recuperar contraseña (Forgot Password)
 
@@ -84,8 +76,6 @@ Autentica a un usuario y devuelve un token de sesión para usar en las siguiente
   "password_confirmation": "NuevaPassword123"
 }
 ```
-
-
 
 ## Gestión de CV (Experiencia, Formación, Idiomas, Datos Extra)
 
@@ -208,3 +198,81 @@ Todas las rutas requieren autenticación con token (Bearer Token en el header Au
 **Notas:**
 - No es necesario enviar el user_id, se toma automáticamente del usuario autenticado por el token.
 - Solo puedes modificar/eliminar tus propios registros.
+
+---
+
+## Cambio de email y contraseña
+
+**Endpoint:** `POST /api/auth/request-change-email-password`
+
+Solicita el cambio conjunto de email y contraseña. (Requiere definir el formato del body según implementación, ejemplo sugerido:)
+
+```json
+{
+  "email": "usuario@ejemplo.com",
+  "nuevo_email": "nuevo@ejemplo.com",
+  "password": "PasswordActual123",
+  "nuevo_password": "NuevoPassword456"
+}
+```
+
+---
+
+## Gestión de Chat
+
+Todas las rutas requieren autenticación con token (Bearer Token en el header Authorization).
+
+### Crear chat
+**Endpoint:** `POST /api/chat/crear`
+
+**Body JSON:**
+```json
+{
+  "mensaje": "Hola, ¿puedo ayudar en algo?",
+  "destinatario_id": 2
+}
+```
+
+### Responder chat
+**Endpoint:** `POST /api/chat/responder`
+
+**Body JSON:**
+```json
+{
+  "chat_id": 1,
+  "mensaje": "Gracias por la respuesta."
+}
+```
+
+### Marcar mensaje como leído
+**Endpoint:** `POST /api/chat/marcar-leido`
+
+**Body JSON:**
+```json
+{
+  "mensaje_id": 10
+}
+```
+
+---
+
+## Gestión de Notificaciones
+
+Todas las rutas requieren autenticación con token (Bearer Token en el header Authorization).
+
+### Crear notificación
+**Endpoint:** `POST /api/notificaciones/crear`
+
+**Body JSON:**
+```json
+{
+  "titulo": "Nueva tarea",
+  "mensaje": "Tienes una nueva tarea asignada.",
+  "user_id": 2
+}
+```
+
+### Marcar notificación como leída
+**Endpoint:** `PATCH /api/notificaciones/{id}/marcar-leida`
+
+No requiere body, solo el ID de la notificación en la URL.
