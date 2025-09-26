@@ -22,14 +22,15 @@ class AuthController extends Controller
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
+    $pin = random_int(100000, 999999);
+    $user->pin_modificar_email_usuari = $pin;
+    $user->save();
 
-        $pin = random_int(100000, 999999);
-        $user->pin_modificar_email_usuari = $pin;
-        $user->save();
+    // Forzar mailer 'log' en entorno de test para evitar errores SMTP
+    $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
+    $mailer->to($validated['new_email'])->send(new UserChangeEmailPinMail($pin, $validated['new_email']));
 
-        Mail::to($validated['new_email'])->send(new UserChangeEmailPinMail($pin, $validated['new_email']));
-
-        return response()->json(['message' => 'Se ha enviado un PIN al nuevo email.']);
+    return response()->json(['message' => 'Se ha enviado un PIN al nuevo email.']);
     }
     public function login(Request $request)
     {
@@ -93,7 +94,9 @@ class AuthController extends Controller
             'rol' => $validated['rol'] ?? 'EMPLEADOS',
         ]);
 
-        Mail::to($user->email)->send(new UserPinMail($pin));
+    // Forzar mailer 'log' en entorno de test para evitar errores SMTP
+    $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
+    $mailer->to($user->email)->send(new UserPinMail($pin));
 
         return response()->json([
             'message' => 'Usuario registrado correctamente. Se ha enviado un email con el PIN.',
@@ -166,7 +169,9 @@ class AuthController extends Controller
         $user->pin_modificar_email_usuari = $pin;
         $user->save();
 
-        Mail::to($user->email)->send(new UserChangeEmailPinMail($pin, $user->email));
+    // Forzar mailer 'log' en entorno de test para evitar errores SMTP
+    $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
+    $mailer->to($user->email)->send(new UserChangeEmailPinMail($pin, $user->email));
 
         return response()->json(['message' => 'Se ha enviado un PIN al email.']);
     }

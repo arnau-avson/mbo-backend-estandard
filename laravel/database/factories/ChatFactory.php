@@ -11,7 +11,9 @@
             return [
                 'manager_id' => User::factory(),
                 'empleado_id' => User::factory(),
-                'data_chat' => now(),
+                'data_chat' => [
+                    ['message' => $this->faker->sentence, 'timestamp' => now()->toDateTimeString()]
+                ],
             ];
         }
     }

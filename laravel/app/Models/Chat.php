@@ -4,6 +4,9 @@
     use Illuminate\Database\Eloquent\Factories\HasFactory;
 
     class Chat extends Model {
+        protected $casts = [
+            'data_chat' => 'array',
+        ];
         use HasFactory;
         protected $fillable = [
             'manager_id',

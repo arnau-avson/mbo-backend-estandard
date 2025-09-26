@@ -81,7 +81,8 @@
             $response = $this->postJson('/api/auth/request-change-password', [
                 'email' => 'test4@example.com'
             ]);
-            $this->assertTrue(in_array($response->status(), [200, 404, 422]));
+            $status = $response->status();
+            $this->assertContains($status, [200,404,422], "Unexpected status: {$status}. Body: ".$response->getContent());
         }
 
 
