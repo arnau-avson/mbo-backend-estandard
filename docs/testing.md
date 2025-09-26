@@ -1,20 +1,14 @@
-## Instalar
+## Intalar dependencias
 ````bash
-composer require barryvdh/laravel-dompdf
+composer install
 ````
 
-## Publicar la configuracion
-````bash
-php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
-````
-
-
-## Comando para ejecutar basico
+## Ejecutar normal para ver en terminal
 ````bash
 php artisan test
 ````
 
-## Comando para ejecutarlo con el pdf
+## Eejcutar para pasar los testing a PDF
 ````bash
-.\tests\test-to-pdf.
+php artisan tests:pdf
 ````

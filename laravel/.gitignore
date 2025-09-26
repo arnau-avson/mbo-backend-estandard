@@ -18,6 +18,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/tests/xml_almacenados/
+/tests/xml_almacenados/*
 /vendor
 Homestead.json
 Homestead.yaml
