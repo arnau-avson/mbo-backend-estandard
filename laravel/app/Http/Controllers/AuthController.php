@@ -22,15 +22,15 @@ class AuthController extends Controller
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
-    $pin = random_int(100000, 999999);
-    $user->pin_modificar_email_usuari = $pin;
-    $user->save();
+        $pin = random_int(100000, 999999);
+        $user->pin_modificar_email_usuari = $pin;
+        $user->save();
 
-    // Forzar mailer 'log' en entorno de test para evitar errores SMTP
-    $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
-    $mailer->to($validated['new_email'])->send(new UserChangeEmailPinMail($pin, $validated['new_email']));
+        // Forzar mailer 'log' en entorno de test para evitar errores SMTP
+        $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
+        $mailer->to($validated['new_email'])->send(new UserChangeEmailPinMail($pin, $validated['new_email']));
 
-    return response()->json(['message' => 'Se ha enviado un PIN al nuevo email.']);
+        return response()->json(['message' => 'Se ha enviado un PIN al nuevo email.']);
     }
     public function login(Request $request)
     {
@@ -49,12 +49,19 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json([
+        $response = [
             'message' => 'Login correcto',
             'user' => $user,
+            'rol' => $user->rol,
             'token' => $token,
-        ]);
+        ];
+        if (in_array(strtoupper($user->rol), ['ADMIN', 'EMPLEADOS'])) {
+            $hotel = $user->hotel ?? Hotel::find($user->hotel_id);
+            $response['hotel_nombre'] = $hotel ? $hotel->nombre : null;
+        }
+        return response()->json($response);
     }
+    
     public function register(Request $request)
     {
 
@@ -94,9 +101,9 @@ class AuthController extends Controller
             'rol' => $validated['rol'] ?? 'EMPLEADOS',
         ]);
 
-    // Forzar mailer 'log' en entorno de test para evitar errores SMTP
-    $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
-    $mailer->to($user->email)->send(new UserPinMail($pin));
+        // Forzar mailer 'log' en entorno de test para evitar errores SMTP
+        $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
+        $mailer->to($user->email)->send(new UserPinMail($pin));
 
         return response()->json([
             'message' => 'Usuario registrado correctamente. Se ha enviado un email con el PIN.',
@@ -169,9 +176,9 @@ class AuthController extends Controller
         $user->pin_modificar_email_usuari = $pin;
         $user->save();
 
-    // Forzar mailer 'log' en entorno de test para evitar errores SMTP
-    $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
-    $mailer->to($user->email)->send(new UserChangeEmailPinMail($pin, $user->email));
+        // Forzar mailer 'log' en entorno de test para evitar errores SMTP
+        $mailer = app()->environment('testing') ? Mail::mailer('log') : Mail::mailer(config('mail.default'));
+        $mailer->to($user->email)->send(new UserChangeEmailPinMail($pin, $user->email));
 
         return response()->json(['message' => 'Se ha enviado un PIN al email.']);
     }
